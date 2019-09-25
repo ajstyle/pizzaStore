@@ -1,0 +1,15 @@
+.nav {
+  background-color: #3F51B5;
+  color : white ; 
+}
+
+.price {
+  position: relative;
+    top: 15px;
+}
+
+
+.active{
+  background-color: #3b3f68 !important;
+  border-color : #3F51B5 ; 
+}
