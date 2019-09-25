@@ -46,16 +46,12 @@ export class PizzaService {
     }
   ];
   pizzaToppings =  [
-  'Pepperoni',
-  'Mushrooms',
-  'Onions',
-  'Sausage',
-  'Bacon',
-  'Extra cheese',
-  'Black olives',
-  'Green peppers',
-  'Pineapple',
-  'Spinach'
+   { name : 'Bacon' , price : 2},
+  { name : 'Mushrooms' , price : 3} ,
+  { name : 'Onions' , price : 1 } ,
+  { name : 'Sausage' , price : 3 } ,
+  {name : 'Extra cheese' , price : 5 }
+
   ];
  
 getPizzaDetail() {

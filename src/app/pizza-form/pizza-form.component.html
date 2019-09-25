@@ -1,11 +1,11 @@
 
 <div *ngIf = 'selectedPizzaArray.length !==0 '>
 <form [formGroup] = 'pizzaForm'>
-
+{{pizzaForm.value|json}}
 <div class = 'container' >
     <div class="row mt-3 ">
         <div class = 'col-md-12'>
-          <h4>Total : {{total|currency : usd}}</h4>
+          <h4>Total : {{totalNew|currency : usd}}</h4>
       </div>
     
     </div>
@@ -20,13 +20,17 @@
 
 
 
-<!-- <h5 class = 'mt-3 mb-3'>Select Toppings </h5>
-
- <div class="row">
-  <div class="col-md-2" *ngFor = 'let topping of toppings$ | async'>
-      <span class="badge badge-secondary">{{topping}}</span>
+<div class="row">
+  <div class = 'col-md-12 mb-3 mt-3' >
+      <label> Select Topping : </label>
+    <select class="browser-default custom-select"  #selectedData formControlName = 'toppings' (change) = 'selectTopping($event,selectedData.value)' >
+      <option selected>Select Topping</option>
+      <option  *ngFor = 'let topping of toppings$ | async' [ngValue] = 'topping'>{{topping.name}}&nbsp;&nbsp;{{topping.price|currency : usd}}</option>
+    </select>
   </div>
-</div>  -->
+</div>
+
+
 <div class="row mt-3">
     <div class = 'col-md-12 mb-3'>
       <label> Email : </label>
@@ -49,26 +53,57 @@
               </div>
       </div>
 </div>
+<div class="row mt-3">
+    <div class = 'col-md-12 mb-3'>
+      <label> State  : </label>
+        <input type="text" class="form-control"  formControlName = 'state' aria-describedby="emailHelp" placeholder="Enter State">
+        <div *ngIf=" f.state.errors">
+            <div *ngIf="f.state.errors.required && ( f.state.touched || f.state.dirty)" class = 'error'>State is required</div>
+              </div>
+      </div>
+     
+  </div>
+<div class="row mt-3">
+  <div class = 'col-md-8 mb-3'>
+    <label> City  : </label>
+      <input type="text" class="form-control"  formControlName = 'city' aria-describedby="emailHelp" placeholder="Enter City">
+      <div *ngIf=" f.city.errors">
+          <div *ngIf="f.city.errors.required && ( f.city.touched || f.city.dirty)" class = 'error'>City is required</div>
+            </div>
+    </div>
+    <div class = 'col-md-4 mb-3'>
+        <label> Pin Code  : </label>
+          <input type="text" class="form-control"  formControlName = 'pinCode' aria-describedby="emailHelp" placeholder="Enter Pin Code">
+          <div *ngIf=" f.pinCode.errors">
+              <div *ngIf="f.pinCode.errors.required && ( f.pinCode.touched || f.pinCode.dirty)" class = 'error'>Pin is required</div>
+                </div>
+        </div>
+</div>
 
 <div class="row">
-    <label> Select Date&Time : </label>
-
-    <dl-date-time-picker
-    startView="day"
-    maxView="year"
-    minView="minute"
-   style = 'width: 80%;
-   padding: 17px;
-   margin-left: 45px;'
-   formControlName = 'deliveryDateTime'
->
-     
-</dl-date-time-picker>
+    <label> Select Date :</label>
+      <div class="col-md-12">
+          <input type="text"
+          class="form-control"
+          [minDate]="minDate"
+          #dp="bsDatepicker"
+          formControlName = 'deliveryDate'
+          bsDatepicker >
+          <div *ngIf=" f.deliveryDate.errors">
+              <div *ngIf="f.deliveryDate.errors.required && ( f.deliveryDate.touched || f.deliveryDate.dirty)" class = 'error'>Delivery Date is required</div>
+                </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <label> Select Time :</label>
+  <div class="col-md-12">
+      <timepicker formControlName = 'deliveryTime' ></timepicker>
+      <div *ngIf=" f.deliveryTime.errors">
+          <div *ngIf="f.deliveryTime.errors.required && ( f.deliveryTime.touched || f.deliveryTime.dirty)" class = 'error'>Delivery Time is required</div>
+            </div>
+  </div>
 
 </div>
-<div class = 'error'>{{showError}}</div>
-
-
 
 <div class="row p-3" >
     <div class="col text-center">
